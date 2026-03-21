@@ -1,11 +1,17 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <Controller.h>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+    Controller control;
+
+    engine.rootContext()->setContextProperty("control", &control);
+
     const QUrl url(QStringLiteral("qrc:/GameQT/main.qml"));
     QObject::connect(
         &engine,

@@ -14,7 +14,8 @@ qt_add_executable(appGameQT
 qt_add_qml_module(appGameQT
     URI GameQT
     VERSION 1.0
-    QML_FILES main.qml 
+    QML_FILES main.qml
+    SOURCES Controller.h Controller.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
