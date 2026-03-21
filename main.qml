@@ -19,10 +19,13 @@ Window {
         Keys.onPressed: (event) =>
                         {
                             if(event.key === Qt.Key_Left){
-                                control.moveLeft();
+                                control.moveLeft()
                             }
                             if(event.key === Qt.Key_Right){
-                                control.moveRight();
+                                control.moveRight()
+                            }
+                            if(event.key === Qt.Key_Up){
+                                control.applyThrust()
                             }
                         }
     }
