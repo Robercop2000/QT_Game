@@ -5,3 +5,41 @@ Controller::Controller(QObject* parent) : m_x(1512/2 - 50), m_y(952-50), xSpeed(
     connect(&time, &QTimer::timeout, this, &Controller::updateState);
     time.start(16);
 }
+
+void Controller::moveLeft(){
+    setX(m_x - xSpeed);
+    if(m_x < minX)
+    {
+        setX(minX);
+    }
+}
+
+void Controller::moveRight(){
+    setX(m_x + xSpeed);
+    if(m_x > maxX)
+    {
+        setX(maxX);
+    }
+}
+
+void Controller::applyThrust()
+{
+    ySpeed = maxThrust;
+    if(m_y < bottomY/1.5)
+    {
+        ySpeed = 0;
+    }
+}
+
+void Controller::updateState()
+{
+    m_y += ySpeed;
+    ySpeed += gravity;
+
+    if(m_y > bottomY)
+    {
+        m_y = bottomY;
+    }
+
+    emit yChanged();
+}

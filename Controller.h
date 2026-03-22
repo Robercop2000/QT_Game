@@ -41,40 +41,14 @@ public:
         }
     }
 
-    Q_INVOKABLE void moveLeft(){
-        setX(m_x - xSpeed);
-        if(m_x < minX)
-        {
-            setX(minX);
-        }
-    }
+    Q_INVOKABLE void moveLeft();
 
-    Q_INVOKABLE void moveRight(){
-        setX(m_x + xSpeed);
-        if(m_x > maxX)
-        {
-            setX(maxX);
-        }
-    }
+    Q_INVOKABLE void moveRight();
 
-    Q_INVOKABLE void applyThrust()
-    {
-        ySpeed = maxThrust;
-    }
+    Q_INVOKABLE void applyThrust();
 
 public slots:
-    void updateState()
-    {
-        m_y += ySpeed;
-        ySpeed += gravity;
-
-        if(m_y > bottomY)
-        {
-            m_y = bottomY;
-        }
-
-        emit yChanged();
-    }
+    void updateState();
 
 signals:
     void xChanged();
@@ -88,7 +62,7 @@ private:
     double maxX;
     double bottomY;
     double ySpeed;
-    double maxThrust = -30;
+    double maxThrust = -10;
     double gravity = 0.5;
     QTimer time;
 };
