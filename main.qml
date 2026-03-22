@@ -30,6 +30,9 @@ Window {
                             if(event.key === Qt.Key_Space){
                                 control.fireBullet();
                             }
+                            if(event.key === Qt.Key_Shift){
+                                control.createEnemy();
+                            }
                         }
     }
 
@@ -37,5 +40,11 @@ Window {
     {
         model: control.bullets
         delegate: Bullet{}
+    }
+
+    Repeater
+    {
+        model: control.enemies
+        delegate: Enemy{}
     }
 }

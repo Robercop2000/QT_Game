@@ -41,6 +41,16 @@ void Controller::fireBullet()
     qInfo() << "Fired Bullet";
 }
 
+void Controller::createEnemy()
+{
+    Enemy* newEnemy = new Enemy();
+    newEnemy->setX(rand() % 1512);
+    newEnemy->setY(0);
+    enemyList.append(newEnemy);
+    emit enemyChanged();
+    qInfo() << "Enemy Created";
+}
+
 void Controller::updateState()
 {
     m_y += ySpeed;
