@@ -14,7 +14,6 @@ qt_add_executable(appGameQT
 qt_add_qml_module(appGameQT
     URI GameQT
     VERSION 1.0
-    QML_FILES
     SOURCES Controller.h Controller.cpp
     QML_FILES Bullet.qml
     SOURCES Bullet.h Bullet.cpp

@@ -13,7 +13,7 @@ class Controller : public QObject
 
     Q_PROPERTY(double x READ x WRITE setX() NOTIFY xChanged)
     Q_PROPERTY(double y READ y WRITE setY() NOTIFY yChanged)
-    Q_PROPERTY(QQmlListProperty bullets READ bullets NOTIFY bulletChanged)
+    Q_PROPERTY(QQmlListProperty<Bullet> bullets READ bullets NOTIFY bulletChanged)
 
 public:
     Controller(QObject* parent = nullptr);

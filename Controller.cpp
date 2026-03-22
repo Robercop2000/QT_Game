@@ -34,6 +34,8 @@ void Controller::applyThrust()
 void Controller::fireBullet()
 {
     Bullet* newBullet = new Bullet();
+    newBullet->setX(m_x + 25);
+    newBullet->setY(m_y - 25);
     bulletList.append(newBullet);
     emit bulletChanged();
     qInfo() << "Fired Bullet";

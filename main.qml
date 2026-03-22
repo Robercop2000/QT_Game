@@ -36,6 +36,6 @@ Window {
     Repeater
     {
         model: control.bullets
-        //delegate:
+        delegate: Bullet{}
     }
 }

@@ -6,6 +6,6 @@ Rectangle
     width: 10
     height: 30
     color: "yellow"
-    anchors.bottom: move.top
-    anchors.horizontalCenter: move.horizontalCenter
+    x: model.x
+    y: model.y
 }
