@@ -31,6 +31,14 @@ void Controller::applyThrust()
     }
 }
 
+void Controller::fireBullet()
+{
+    Bullet* newBullet = new Bullet();
+    bulletList.append(newBullet);
+    emit bulletChanged();
+    qInfo() << "Fired Bullet";
+}
+
 void Controller::updateState()
 {
     m_y += ySpeed;

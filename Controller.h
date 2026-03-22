@@ -3,6 +3,9 @@
 
 #include <QObject>
 #include <QTimer>
+#include <Bullet.h>
+#include <QDebug>
+#include <QQmlListProperty>
 
 class Controller : public QObject
 {
@@ -10,6 +13,7 @@ class Controller : public QObject
 
     Q_PROPERTY(double x READ x WRITE setX() NOTIFY xChanged)
     Q_PROPERTY(double y READ y WRITE setY() NOTIFY yChanged)
+    Q_PROPERTY(QQmlListProperty bullets READ bullets NOTIFY bulletChanged)
 
 public:
     Controller(QObject* parent = nullptr);
@@ -42,10 +46,13 @@ public:
     }
 
     Q_INVOKABLE void moveLeft();
-
     Q_INVOKABLE void moveRight();
-
     Q_INVOKABLE void applyThrust();
+    Q_INVOKABLE void fireBullet();
+
+    QQmlListProperty <Bullet> bullets(){
+        return QQmlListProperty(this, &bulletList);
+    }
 
 public slots:
     void updateState();
@@ -53,6 +60,7 @@ public slots:
 signals:
     void xChanged();
     void yChanged();
+    void bulletChanged();
 
 private:
     double m_x;
@@ -65,6 +73,7 @@ private:
     double maxThrust = -10;
     double gravity = 0.5;
     QTimer time;
+    QList<Bullet*> bulletList;
 };
 
 #endif // CONTROLLER_H
