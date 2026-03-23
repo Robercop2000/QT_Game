@@ -8,4 +8,8 @@ Bullet::Bullet(QObject* parent) : m_x(1512/2), m_y(952-50), ySpeed(-10)
 
 void Bullet::updateBullet(){
     setY(m_y + ySpeed);
+
+    if(m_y < 0){
+        emit bulletDestroyed(this);
+    }
 }

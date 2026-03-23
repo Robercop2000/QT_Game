@@ -28,10 +28,7 @@ Window {
                                 control.applyThrust()
                             }
                             if(event.key === Qt.Key_Space){
-                                control.fireBullet();
-                            }
-                            if(event.key === Qt.Key_Shift){
-                                control.createEnemy();
+                                control.fireBullet()
                             }
                         }
     }

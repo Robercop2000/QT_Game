@@ -1,9 +1,9 @@
 #include "Enemy.h"
 
-Enemy::Enemy(QObject* parent) : m_x(rand() % 1512), m_y(0), ySpeed(10)
+Enemy::Enemy(QObject* parent) : m_x(rand() % 1512), m_y(0), ySpeed(3)
 {
     connect(&eTime, &QTimer::timeout, this, &Enemy::updateEnemy);
-    eTime.start(1000);
+    eTime.start(150);
 }
 
 void Enemy::updateEnemy(){

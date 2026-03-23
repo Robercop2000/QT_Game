@@ -47,6 +47,7 @@ public slots:
 signals:
     void xChanged();
     void yChanged();
+    void bulletDestroyed(Bullet* bullet);
 
 private:
     double m_x;

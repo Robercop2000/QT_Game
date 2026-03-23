@@ -63,6 +63,9 @@ public:
 
 public slots:
     void updateState();
+    void deleteBullet(Bullet* bullet);
+    void deleteEnemy(Enemy* enemy);
+    void checkCollision();
 
 signals:
     void xChanged();
@@ -81,6 +84,7 @@ private:
     double maxThrust = -10;
     double gravity = 0.5;
     QTimer time;
+    QTimer startE;
     QList<Bullet*> bulletList;
     QList<Enemy*> enemyList;
 };
