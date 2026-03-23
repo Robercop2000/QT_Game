@@ -31,6 +31,16 @@ Window {
                                 control.fireBullet()
                             }
                         }
+
+        Keys.onReleased: (event) =>
+                         {
+                             if(event.key === Qt.Key_Left){
+                                 control.stopMovement()
+                             }
+                             if(event.key === Qt.Key_Right){
+                                 control.stopMovement()
+                             }
+                         }
     }
 
     Repeater

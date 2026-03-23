@@ -4,24 +4,57 @@ Controller::Controller(QObject* parent) : m_x(1512/2 - 50), m_y(952-50), xSpeed(
 {
     connect(&time, &QTimer::timeout, this, &Controller::updateState);
     time.start(16);
+
+    connect(&time, &QTimer::timeout, this, &Controller::updateMovement);
+    time.start(16);
+
     connect(&startE, &QTimer::timeout, this, &Controller::createEnemy);
     startE.start(1000 + rand() % 2000);
 }
 
 void Controller::moveLeft(){
-    setX(m_x - xSpeed);
-    if(m_x < minX)
+    moveDirection = -1;
+    if(!move.isActive())
     {
-        setX(minX);
+        move.start();
     }
+    // setX(m_x - xSpeed);
+    // if(m_x < minX)
+    // {
+    //     setX(minX);
+    // }
 }
 
 void Controller::moveRight(){
-    setX(m_x + xSpeed);
-    if(m_x > maxX)
+    moveDirection = 1;
+    if(!move.isActive())
     {
-        setX(maxX);
+        move.start();
     }
+    // setX(m_x + xSpeed);
+    // if(m_x > maxX)
+    // {
+    //     setX(maxX);
+    // }
+}
+
+void Controller::updateMovement()
+{
+    if(moveDirection == -1 && m_x > minX){
+        setX(m_x - xSpeed);
+    }
+    if(moveDirection == 1 && m_x < maxX){
+        setX(m_x + xSpeed);
+    }
+    if(moveDirection == 0){
+        setX(m_x);
+    }
+}
+
+void Controller::stopMovement()
+{
+    moveDirection = 0;
+    move.stop();
 }
 
 void Controller::applyThrust()

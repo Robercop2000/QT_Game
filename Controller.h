@@ -52,6 +52,7 @@ public:
     Q_INVOKABLE void applyThrust();
     Q_INVOKABLE void fireBullet();
     Q_INVOKABLE void createEnemy();
+    Q_INVOKABLE void stopMovement();
 
     QQmlListProperty <Bullet> bullets(){
         return QQmlListProperty(this, &bulletList);
@@ -66,6 +67,7 @@ public slots:
     void deleteBullet(Bullet* bullet);
     void deleteEnemy(Enemy* enemy);
     void checkCollision();
+    void updateMovement();
 
 signals:
     void xChanged();
@@ -87,6 +89,8 @@ private:
     QTimer startE;
     QList<Bullet*> bulletList;
     QList<Enemy*> enemyList;
+    QTimer move;
+    int moveDirection;
 };
 
 #endif // CONTROLLER_H
