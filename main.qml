@@ -43,6 +43,22 @@ Window {
                          }
     }
 
+    Text{
+        id: scoreBoard
+        text: "Score: " + control.showScore()
+        color: "black"
+        x: 50
+        y: 50
+
+        Connections
+        {
+            target: control
+            function onScoreChanged(){
+                scoreBoard.text = "Score: " + control.showScore()
+            }
+        }
+    }
+
     Repeater
     {
         model: control.bullets

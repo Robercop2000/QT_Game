@@ -57,6 +57,11 @@ void Controller::stopMovement()
     move.stop();
 }
 
+QString Controller::showScore()
+{
+    return QString::number(score());
+}
+
 void Controller::applyThrust()
 {
     ySpeed = maxThrust;
@@ -138,6 +143,7 @@ void Controller::checkCollision()
             {
                 deleteBullet(bullet);
                 deleteEnemy(enemy);
+                setScore(score() + 10);
                 break;
             }
         }

@@ -16,6 +16,7 @@ class Controller : public QObject
     Q_PROPERTY(double y READ y WRITE setY() NOTIFY yChanged)
     Q_PROPERTY(QQmlListProperty<Bullet> bullets READ bullets NOTIFY bulletChanged)
     Q_PROPERTY(QQmlListProperty<Enemy> enemies READ enemies NOTIFY enemyChanged)
+    Q_PROPERTY(double score READ score WRITE setScore NOTIFY scoreChanged)
 
 public:
     Controller(QObject* parent = nullptr);
@@ -47,12 +48,27 @@ public:
         }
     }
 
+    int score()
+    {
+        return m_score;
+    }
+
+    void setScore(int value)
+    {
+        if(m_score != value)
+        {
+            m_score = value;
+            emit scoreChanged();
+        }
+    }
+
     Q_INVOKABLE void moveLeft();
     Q_INVOKABLE void moveRight();
     Q_INVOKABLE void applyThrust();
     Q_INVOKABLE void fireBullet();
     Q_INVOKABLE void createEnemy();
     Q_INVOKABLE void stopMovement();
+    Q_INVOKABLE QString showScore();
 
     QQmlListProperty <Bullet> bullets(){
         return QQmlListProperty(this, &bulletList);
@@ -74,6 +90,7 @@ signals:
     void yChanged();
     void bulletChanged();
     void enemyChanged();
+    void scoreChanged();
 
 private:
     double m_x;
@@ -91,6 +108,7 @@ private:
     QList<Enemy*> enemyList;
     QTimer move;
     int moveDirection;
+    int m_score = 0;
 };
 
 #endif // CONTROLLER_H
