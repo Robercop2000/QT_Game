@@ -88,7 +88,7 @@ void Controller::applyThrust()
 void Controller::fireBullet()
 {
     Bullet* newBullet = new Bullet();
-    newBullet->setX(m_x + 25);
+    newBullet->setX(m_x + 40);
     newBullet->setY(m_y - 25);
     bulletList.append(newBullet);
     connect(newBullet, &Bullet::bulletDestroyed, this, &Controller::deleteBullet);
@@ -150,6 +150,8 @@ void Controller::checkCollision()
             double enemyTop = enemy->y();
             double enemyBottom = enemy->y() + 40;
 
+            qInfo() << "Collision Checked";
+
             if (bulletRight > enemyLeft &&
                 bulletLeft < enemyRight &&
                 bulletBottom > enemyTop &&
@@ -174,7 +176,7 @@ void Controller::updateState()
         m_y = bottomY;
     }
 
-    void checkCollision();
+    checkCollision();
 
     for(Enemy* e : enemyList)
     {

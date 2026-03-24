@@ -10,7 +10,7 @@ Item
         "qrc:/enemy/enemy5.png"
     ]
 
-    property int eIndex: Math.floor(Math.random() * ePng.length)
+    property int eIndex: 0
 
     id: enemy
     width: 40
@@ -22,6 +22,6 @@ Item
     {
         id: enemies
         anchors.fill: parent
-        source: ePng[model.index]
+        source: ePng[model.m_index]
     }
 }

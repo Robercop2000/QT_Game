@@ -7,99 +7,117 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    Rectangle
+    FontLoader
     {
-        id: gameOverOverlay
+        id: pMedium
+        source: "qrc:/fonts/Doto-Bold.ttf"
+    }
+
+    Rectangle{
+        id: gameArea
         anchors.fill: parent
-        visible: false
-        color: "Black"
-        opacity: 0.8
-        z: 1001
+        visible: true
+        gradient: Gradient{
+            GradientStop { position: 0.0; color: "darkblue"}
+            GradientStop { position: 1.0; color: "Black"}
+        }
 
-        ColumnLayout
+        Rectangle
         {
-            anchors.centerIn: parent
-            spacing: 20
+            id: gameOverOverlay
+            anchors.fill: parent
+            visible: false
+            color: "Black"
+            opacity: 0.8
+            z: 1001
 
-            Text{
-                id: gameOver
-                text: qsTr("GameOver")
-                color: "White"
-            }
-
-            RowLayout
+            ColumnLayout
             {
+                anchors.centerIn: parent
                 spacing: 20
 
-                Rectangle
+                Text{
+                    id: gameOver
+                    text: qsTr("GameOver")
+                    color: "White"
+                }
+
+                RowLayout
                 {
-                    id: closeBtn
-                    width: 300
-                    height: 35
-                    color: "Gray"
-                    radius: 20
-                    Text{
-                        text: qsTr("Close")
-                        color: "White"
-                        anchors.centerIn: parent
+                    spacing: 20
+
+                    Rectangle
+                    {
+                        id: closeBtn
+                        width: 300
+                        height: 35
+                        color: "Gray"
+                        radius: 20
+                        Text{
+                            text: qsTr("Close")
+                            color: "White"
+                            anchors.centerIn: parent
+                        }
+
+                        MouseArea{
+                            hoverEnabled: true
+
+                            anchors.fill: parent
+                            onEntered:{
+                                closeBtn.color = "Blue"
+                            }
+
+                            onExited:
+                            {
+                                closeBtn.color = "Grey"
+                            }
+
+                            onClicked:
+                            {
+                                Qt.quit()
+                            }
+                        }
+                    }
+                    Rectangle{
+                        id: restartBtn
+                        width: 300
+                        height: 35
+
+                        color: "Gray"
+                        radius: 20
+                        Text{
+                            text: qsTr("Restart")
+                            color: "White"
+                            anchors.centerIn: parent
+                        }
+
+                        MouseArea{
+                            hoverEnabled: true
+
+                            anchors.fill: parent
+                            onEntered:
+                            {
+                                restartBtn.color = "Blue"
+                            }
+
+                            onExited:
+                            {
+                                restartBtn.color = "Grey"
+                            }
+
+                            onClicked:
+                            {
+                                control.restartGame()
+                            }
+                        }
                     }
 
-                    MouseArea{
-                        hoverEnabled: true
-
-                        anchors.fill: parent
-                        onEntered:{
-                            closeBtn.color = "Blue"
-                        }
-
-                        onExited:
-                        {
-                            closeBtn.color = "Grey"
-                        }
-
-                        onClicked:
-                        {
-                            Qt.quit()
-                        }
-                    }
                 }
-                Rectangle{
-                    id: restartBtn
-                    width: 300
-                    height: 35
-
-                    color: "Gray"
-                    radius: 20
-                    Text{
-                        text: qsTr("Restart")
-                        color: "White"
-                        anchors.centerIn: parent
-                    }
-
-                    MouseArea{
-                        hoverEnabled: true
-
-                        anchors.fill: parent
-                        onEntered:
-                        {
-                            restartBtn.color = "Blue"
-                        }
-
-                        onExited:
-                        {
-                            restartBtn.color = "Grey"
-                        }
-
-                        onClicked:
-                        {
-                            control.restartGame()
-                        }
-                    }
-                }
-
             }
         }
     }
+
+
     Connections{
         target: control
         onGameOver:
@@ -111,12 +129,32 @@ Window {
     Rectangle
     {
         id: move
-        width: 50
-        height: 50
-        color: "red"
+        width: 85
+        height: 85
+        color: "Transparent"
         x: control.x
         y: control.y
         focus: true
+
+        Image{
+            id: rocket
+            source: "qrc:/player/rocket.png"
+            width: 55
+            height: 55
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+        }
+
+        AnimatedImage
+        {
+            id: thruster
+            source: "qrc:/player/thruster.gif"
+            width: 30
+            height: 30
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: rocket.bottom
+            playing: true
+        }
 
         Keys.onPressed: (event) =>
                         {
@@ -132,23 +170,33 @@ Window {
                             if(event.key === Qt.Key_Space){
                                 control.fireBullet()
                             }
+
+                            thruster.playing = true
                         }
 
         Keys.onReleased: (event) =>
                          {
-                             if(event.key === Qt.Key_Left){
+                             if(event.key === Qt.Key_Left ||  Qt.Key_Right){
                                  control.stopMovement()
                              }
-                             if(event.key === Qt.Key_Right){
-                                 control.stopMovement()
-                             }
+                             thruster.playing = false
                          }
+
+        Component.onCompleted:
+        {
+            move.forceActiveFocus()
+            thruster.playing = true
+        }
     }
 
     Text{
         id: scoreBoard
         text: "Score: " + control.showScore()
-        color: "black"
+        font.family: pMedium.font.family
+        font.weight: pMedium.font.weight
+        font.styleName: pMedium.font.styleName
+        font.pixelSize: 40
+        color: "White"
         x: 50
         y: 50
 
