@@ -1,10 +1,112 @@
 import QtQuick
+import QtQuick.Layouts
 
 Window {
     width: 1512
     height: 982
     visible: true
     title: qsTr("Hello World")
+
+    Rectangle
+    {
+        id: gameOverOverlay
+        anchors.fill: parent
+        visible: false
+        color: "Black"
+        opacity: 0.8
+        z: 1001
+
+        ColumnLayout
+        {
+            anchors.centerIn: parent
+            spacing: 20
+
+            Text{
+                id: gameOver
+                text: qsTr("GameOver")
+                color: "White"
+            }
+
+            RowLayout
+            {
+                spacing: 20
+
+                Rectangle
+                {
+                    id: closeBtn
+                    width: 300
+                    height: 35
+                    color: "Gray"
+                    radius: 20
+                    Text{
+                        text: qsTr("Close")
+                        color: "White"
+                        anchors.centerIn: parent
+                    }
+
+                    MouseArea{
+                        hoverEnabled: true
+
+                        anchors.fill: parent
+                        onEntered:{
+                            closeBtn.color = "Blue"
+                        }
+
+                        onExited:
+                        {
+                            closeBtn.color = "Grey"
+                        }
+
+                        onClicked:
+                        {
+                            Qt.quit()
+                        }
+                    }
+                }
+                Rectangle{
+                    id: restartBtn
+                    width: 300
+                    height: 35
+
+                    color: "Gray"
+                    radius: 20
+                    Text{
+                        text: qsTr("Restart")
+                        color: "White"
+                        anchors.centerIn: parent
+                    }
+
+                    MouseArea{
+                        hoverEnabled: true
+
+                        anchors.fill: parent
+                        onEntered:
+                        {
+                            restartBtn.color = "Blue"
+                        }
+
+                        onExited:
+                        {
+                            restartBtn.color = "Grey"
+                        }
+
+                        onClicked:
+                        {
+                            control.restartGame()
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+    Connections{
+        target: control
+        onGameOver:
+        {
+            gameOverOverlay.visible = true
+        }
+    }
 
     Rectangle
     {

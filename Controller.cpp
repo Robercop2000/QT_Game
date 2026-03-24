@@ -18,11 +18,6 @@ void Controller::moveLeft(){
     {
         move.start();
     }
-    // setX(m_x - xSpeed);
-    // if(m_x < minX)
-    // {
-    //     setX(minX);
-    // }
 }
 
 void Controller::moveRight(){
@@ -31,11 +26,6 @@ void Controller::moveRight(){
     {
         move.start();
     }
-    // setX(m_x + xSpeed);
-    // if(m_x > maxX)
-    // {
-    //     setX(maxX);
-    // }
 }
 
 void Controller::updateMovement()
@@ -60,6 +50,30 @@ void Controller::stopMovement()
 QString Controller::showScore()
 {
     return QString::number(score());
+}
+
+void Controller::restartGame()
+{
+    for(Enemy* e : enemyList)
+    {
+        delete e;
+    }
+    enemyList.clear();
+
+    for(Bullet* b: bulletList)
+    {
+        delete b;
+    }
+    bulletList.clear();
+
+    emit enemyChanged();
+    emit bulletChanged();
+
+    setX(1462/2);
+    setY(922-50);
+
+    emit xChanged();
+    emit yChanged();
 }
 
 void Controller::applyThrust()
@@ -160,6 +174,37 @@ void Controller::updateState()
         m_y = bottomY;
     }
 
-    checkCollision();
+    void checkCollision();
+
+    for(Enemy* e : enemyList)
+    {
+        if(e->y() > bottomY)
+        {
+            emit gameOver();
+            qInfo() << "Game Over";
+            return;
+        }
+
+        double enemyLeft = e->x();
+        double enemyRight = e->x() + 40;
+        double enemyTop = e->y();
+        double enemyBottom = e->y() + 40;
+
+        double playerLeft = m_x;
+        double playerRight = m_x + 50;
+        double playerTop = m_y;
+        double playerBottom = m_y + 50;
+
+        if (enemyRight > playerLeft &&
+            enemyLeft < playerRight &&
+            enemyTop < playerBottom &&
+            enemyBottom > playerTop)
+        {
+            emit gameOver();
+            qInfo() << "Game Over";
+            return;
+        }
+    }
+
     emit yChanged();
 }

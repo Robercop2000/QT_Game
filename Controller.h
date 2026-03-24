@@ -69,6 +69,7 @@ public:
     Q_INVOKABLE void createEnemy();
     Q_INVOKABLE void stopMovement();
     Q_INVOKABLE QString showScore();
+    Q_INVOKABLE void restartGame();
 
     QQmlListProperty <Bullet> bullets(){
         return QQmlListProperty(this, &bulletList);
@@ -91,6 +92,7 @@ signals:
     void bulletChanged();
     void enemyChanged();
     void scoreChanged();
+    void gameOver();
 
 private:
     double m_x;
