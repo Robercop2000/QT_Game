@@ -71,6 +71,9 @@ void Controller::restartGame()
 
     emit xChanged();
     emit yChanged();
+
+    setScore(0);
+    emit scoreChanged();
 }
 
 void Controller::applyThrust()
@@ -146,8 +149,6 @@ void Controller::checkCollision()
             double enemyRight = enemy->x() + 40;
             double enemyTop = enemy->y();
             double enemyBottom = enemy->y() + 40;
-
-            qInfo() << "Collision Checked";
 
             if (bulletRight > enemyLeft &&
                 bulletLeft < enemyRight &&

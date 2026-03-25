@@ -18,7 +18,7 @@ Window {
         anchors.fill: parent
         visible: true
         gradient: Gradient{
-            GradientStop { position: 0.0; color: "darkblue"}
+            GradientStop { position: 0.0; color: "Darkblue"}
             GradientStop { position: 1.0; color: "Black"}
         }
 
@@ -38,7 +38,12 @@ Window {
 
                 Text{
                     id: gameOver
-                    text: qsTr("GameOver")
+                    text: qsTr("Game Over\n " + scoreBoard.text)
+                    font.family: pMedium.font.family
+                    font.weight: pMedium.font.weight
+                    font.styleName: pMedium.font.styleName
+                    font.pixelSize: 60
+                    Layout.alignment: Qt.AlignCenter
                     color: "White"
                 }
 
@@ -49,12 +54,16 @@ Window {
                     Rectangle
                     {
                         id: closeBtn
-                        width: 300
-                        height: 35
+                        width: 250
+                        height: 45
                         color: "Gray"
                         radius: 20
                         Text{
                             text: qsTr("Close")
+                            font.family: pMedium.font.family
+                            font.weight: pMedium.font.weight
+                            font.styleName: pMedium.font.styleName
+                            font.pixelSize: 35
                             color: "White"
                             anchors.centerIn: parent
                         }
@@ -64,7 +73,7 @@ Window {
 
                             anchors.fill: parent
                             onEntered:{
-                                closeBtn.color = "Blue"
+                                closeBtn.color = "Red"
                             }
 
                             onExited:
@@ -80,13 +89,17 @@ Window {
                     }
                     Rectangle{
                         id: restartBtn
-                        width: 300
-                        height: 35
+                        width: 250
+                        height: 45
 
                         color: "Gray"
                         radius: 20
                         Text{
                             text: qsTr("Restart")
+                            font.family: pMedium.font.family
+                            font.weight: pMedium.font.weight
+                            font.styleName: pMedium.font.styleName
+                            font.pixelSize: 35
                             color: "White"
                             anchors.centerIn: parent
                         }
@@ -108,6 +121,7 @@ Window {
                             onClicked:
                             {
                                 control.restartGame()
+                                gameOverOverlay.visible = false
                             }
                         }
                     }
