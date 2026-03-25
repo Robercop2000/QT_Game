@@ -8,19 +8,19 @@ class Bullet : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(double x READ x WRITE setX() NOTIFY xChanged)
-    Q_PROPERTY(double y READ y WRITE setY() NOTIFY yChanged)
+    Q_PROPERTY(float x READ x WRITE setX() NOTIFY xChanged)
+    Q_PROPERTY(float y READ y WRITE setY() NOTIFY yChanged)
 
 public:
     Bullet(QObject* parent = nullptr);
 
 public:
-    double x()
+    float x()
     {
         return m_x;
     }
 
-    double y()
+    float y()
     {
         return m_y;
     }
@@ -50,9 +50,9 @@ signals:
     void bulletDestroyed(Bullet* bullet);
 
 private:
-    double m_x;
-    double m_y;
-    double ySpeed;
+    float m_x;
+    float m_y;
+    float ySpeed;
     QTimer bTime;
 };
 

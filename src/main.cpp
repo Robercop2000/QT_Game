@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     Controller control;
     engine.rootContext()->setContextProperty("control", &control);
 
-    engine.loadFromModule("GameQT", "main");
+    engine.loadFromModule("GameQT", "Main");
 
     if (engine.rootObjects().isEmpty())
         return -1;

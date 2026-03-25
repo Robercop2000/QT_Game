@@ -1,6 +1,6 @@
 #include "Controller.h"
 
-Controller::Controller(QObject* parent) : m_x(1512/2 - 50), m_y(952-50), xSpeed(10), minX(0), maxX(1512), bottomY(952-50)
+Controller::Controller(QObject* parent) : m_x(1200/2 - 50), m_y(720-50), xSpeed(10), minX(0), maxX(1200), bottomY(720-50)
 {
     connect(&time, &QTimer::timeout, this, &Controller::updateState);
     time.start(16);
@@ -36,9 +36,6 @@ void Controller::updateMovement()
     if(moveDirection == 1 && m_x < maxX){
         setX(m_x + xSpeed);
     }
-    if(moveDirection == 0){
-        setX(m_x);
-    }
 }
 
 void Controller::stopMovement()
@@ -69,8 +66,8 @@ void Controller::restartGame()
     emit enemyChanged();
     emit bulletChanged();
 
-    setX(1462/2);
-    setY(922-50);
+    setX(1200/2);
+    setY(720-50);
 
     emit xChanged();
     emit yChanged();
@@ -110,7 +107,7 @@ void Controller::deleteBullet(Bullet *bullet)
 void Controller::createEnemy()
 {
     Enemy* newEnemy = new Enemy();
-    newEnemy->setX(rand() % 1512);
+    newEnemy->setX(rand() % 1200);
     newEnemy->setY(0);
     enemyList.append(newEnemy);
 

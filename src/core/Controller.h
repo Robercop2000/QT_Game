@@ -12,27 +12,22 @@ class Controller : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(double x READ x WRITE setX() NOTIFY xChanged)
-    Q_PROPERTY(double y READ y WRITE setY() NOTIFY yChanged)
+    Q_PROPERTY(float x READ x WRITE setX() NOTIFY xChanged)
+    Q_PROPERTY(float y READ y WRITE setY() NOTIFY yChanged)
     Q_PROPERTY(QQmlListProperty<Bullet> bullets READ bullets NOTIFY bulletChanged)
     Q_PROPERTY(QQmlListProperty<Enemy> enemies READ enemies NOTIFY enemyChanged)
-    Q_PROPERTY(double score READ score WRITE setScore NOTIFY scoreChanged)
+    Q_PROPERTY(uint score READ score WRITE setScore NOTIFY scoreChanged)
 
 public:
     Controller(QObject* parent = nullptr);
 
 public:
-    double x()
+    float x()
     {
         return m_x;
     }
 
-    double y()
-    {
-        return m_y;
-    }
-
-    void setX(double value)
+    void setX(float value)
     {
         if(m_x != value){
             m_x = value;
@@ -40,7 +35,12 @@ public:
         }
     }
 
-    void setY(double value)
+    float y()
+    {
+        return m_y;
+    } 
+
+    void setY(float value)
     {
         if(m_y != value){
             m_y = value;
@@ -95,22 +95,22 @@ signals:
     void gameOver();
 
 private:
-    double m_x;
-    double m_y;
-    double xSpeed;
-    double minX;
-    double maxX;
-    double bottomY;
-    double ySpeed;
-    double maxThrust = -10;
-    double gravity = 0.5;
+    float m_x;
+    float m_y;
+    float xSpeed;
+    float minX;
+    float maxX;
+    float bottomY;
+    float ySpeed;
+    float maxThrust = -10;
+    float gravity = 0.5;
     QTimer time;
     QTimer startE;
     QList<Bullet*> bulletList;
     QList<Enemy*> enemyList;
     QTimer move;
     int moveDirection;
-    int m_score = 0;
+    uint m_score = 0;
 };
 
 #endif // CONTROLLER_H

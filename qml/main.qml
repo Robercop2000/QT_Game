@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 
 Window {
-    width: 1512
-    height: 982
+    width: 1200
+    height: 720
     visible: true
     title: qsTr("Hello World")
 
