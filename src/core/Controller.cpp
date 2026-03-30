@@ -1,6 +1,6 @@
 #include "Controller.h"
 
-Controller::Controller(QObject* parent) : m_x(1200/2 - 50), m_y(720-50), xSpeed(10), minX(0), maxX(1200), bottomY(720-50)
+Controller::Controller(QObject* parent) : m_screenWidth(1500), m_screenHeight(720), m_x(m_screenWidth/2 - 25), m_y(m_screenHeight-50), xSpeed(10), minX(0), maxX(m_screenWidth - 75), bottomY(m_screenHeight-50)
 {
     connect(&time, &QTimer::timeout, this, &Controller::updateState);
     time.start(16);
@@ -110,7 +110,7 @@ void Controller::deleteBullet(Bullet *bullet)
 void Controller::createEnemy()
 {
     Enemy* newEnemy = new Enemy();
-    newEnemy->setX(rand() % 1200);
+    newEnemy->setX(rand() % m_screenWidth);
     newEnemy->setY(0);
     enemyList.append(newEnemy);
 

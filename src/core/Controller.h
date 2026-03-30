@@ -12,6 +12,8 @@ class Controller : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(int screenWidth READ screenWidth WRITE setScreenWidth NOTIFY screenSizeChanged)
+    Q_PROPERTY(int screenHeight READ screenHeight WRITE setScreenHeight NOTIFY screenSizeChanged)
     Q_PROPERTY(float x READ x WRITE setX() NOTIFY xChanged)
     Q_PROPERTY(float y READ y WRITE setY() NOTIFY yChanged)
     Q_PROPERTY(QQmlListProperty<Bullet> bullets READ bullets NOTIFY bulletChanged)
@@ -22,6 +24,20 @@ public:
     Controller(QObject* parent = nullptr);
 
 public:
+
+    int screenWidth() const { return m_screenWidth; }
+    int screenHeight() const { return m_screenHeight; }
+
+    void setScreenWidth(int w) {
+        m_screenWidth = w;
+        emit screenSizeChanged();
+    }
+
+    void setScreenHeight(int h) {
+        m_screenHeight = h;
+        emit screenSizeChanged();
+    }
+
     float x()
     {
         return m_x;
@@ -87,6 +103,7 @@ public slots:
     void updateMovement();
 
 signals:
+    void screenSizeChanged();
     void xChanged();
     void yChanged();
     void bulletChanged();
@@ -95,21 +112,30 @@ signals:
     void gameOver();
 
 private:
+    int m_screenWidth;
+    int m_screenHeight;
+
     float m_x;
     float m_y;
+
     float xSpeed;
+
     float minX;
     float maxX;
+
     float bottomY;
     float ySpeed;
     float maxThrust = -10;
     float gravity = 0.5;
+
+    QTimer move;
+    int moveDirection;
+
     QTimer time;
     QTimer startE;
     QList<Bullet*> bulletList;
     QList<Enemy*> enemyList;
-    QTimer move;
-    int moveDirection;
+
     uint m_score = 0;
 };
 
